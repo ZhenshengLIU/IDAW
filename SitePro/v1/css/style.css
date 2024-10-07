@@ -98,9 +98,8 @@ input[type="text"] {
     left:0;
     right:0;
     bottom:0;
-    z-index:0;
+    z-index:1;
     border-radius: 8px;
-    opacity: 0.9;
 }
 
 button {
@@ -112,7 +111,7 @@ button {
     color: white;
     border-radius: 8px;
     cursor: pointer;
-    z-index: 2;
+    z-index:2;
 }
 
 button:hover {
