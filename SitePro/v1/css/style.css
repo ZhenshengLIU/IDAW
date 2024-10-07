@@ -51,3 +51,17 @@ p{
     text-align: justify;
     text-indent: 20px;
 }
+
+/* style of the footer */
+footer{
+    margin:500px 0px 20px 0px;
+}
+
+
+/*style of the selfie */
+.selfie{
+    border-radius: 50%; 
+    width: 120px; 
+    height: 120px; 
+    margin-right: 20px; 
+}
