@@ -43,7 +43,13 @@ h1{
     text-align:center;
 }
 
-
+body{
+    font-family: 'Times New Roman', sans-serif;
+    text-align: center;
+    padding-top:50px;
+    margin:0px;
+    
+}
 /* style of the paragraphe */
 p{
     font-size: 1em;
@@ -58,15 +64,40 @@ footer{
     margin:500px 0px 20px 0px;
 }
 
+
+
+
 /* search part */
+
+.search-container{
+    position: relative;
+    display: inline-block;
+}
+
+
+
 input[type="text"] {
     width: 300px;
     padding: 10px;
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: 8px;
-    background-image: url('../images/mouth.jpg'); 
-    background-size: contain;
+    position:relative;
+    z-index:1;
+    background: transparent;
+}
+
+.search-container::before{
+    content:"";
+    background: url('../images/mouth.jpg') no-repeat center;
+    background-size: cover;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:0;
+    border-radius: 8px;
 }
 
 button {
