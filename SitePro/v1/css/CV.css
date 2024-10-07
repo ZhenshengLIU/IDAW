@@ -89,21 +89,11 @@ h2 {
     color:white;
 }
 
-.skills, .languages, .interests {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-}
-
-.skills li, .languages li, .interests li {
-    padding: 5px 0;
-    border-bottom: 1px solid #7f8c8d;
-}
-
 /* right side */
-.main-content {
+.profil {
     width: 70%;
-    padding: 20px;
+    padding: 0 0 0 20px ;
+
 }
 
 h3 {
@@ -112,11 +102,6 @@ h3 {
     padding-bottom: 5px;
     margin-top: 0;
     padding: 10px;
-}
-
-.formation p, .experience p {
-    margin: 10px 0;
-    line-height: 1.6;
 }
 
 p {
