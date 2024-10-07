@@ -49,10 +49,9 @@ body {
 
 /* CV container */
 .container {
-    display: flex;
-    width: 70%;
+    width: 80%;
     max-width: 1500px;
-    margin:20px 0 0 0;
+    margin:20px 0;
     display: flex;
     justify-content: center;
 }
@@ -67,6 +66,7 @@ body {
 
 .selfie {
     width: 100%;
+    height:15%;
     border-radius: 50%;
     margin-bottom: 20px;
 }
