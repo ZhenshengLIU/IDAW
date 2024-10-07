@@ -83,7 +83,8 @@ input[type="text"] {
     border: 2px solid #ccc;
     border-radius: 8px;
     position:relative;
-    z-index:1;
+    margin-top:130px;
+    z-index:2;
     background: transparent;
 }
 
@@ -92,12 +93,14 @@ input[type="text"] {
     background: url('../images/mouth.jpg') no-repeat center;
     background-size: cover;
     position: absolute;
+    height:300px;
     top:0;
     left:0;
     right:0;
     bottom:0;
     z-index:0;
     border-radius: 8px;
+    opacity: 0.9;
 }
 
 button {
@@ -109,6 +112,7 @@ button {
     color: white;
     border-radius: 8px;
     cursor: pointer;
+    z-index: 2;
 }
 
 button:hover {
