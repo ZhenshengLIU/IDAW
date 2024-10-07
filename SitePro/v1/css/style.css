@@ -1,0 +1,53 @@
+/*style of menu*/
+.menu {
+    background-color: #90b9f3; 
+    overflow: hidden;
+}
+
+.menu ul {
+    list-style-type: none;  
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;  
+}
+
+.menu li {
+    flex:1;
+    text-align:center; 
+}
+
+.menu li a {
+    display: block;  
+    color: #fff;  
+    padding: 14px 20px;  
+    text-decoration: none;  
+    text-align: center;  
+
+}
+
+.menu li a:hover {
+    background-color: #111; 
+}
+
+.menu li a.currentpage{
+    border : 2px solid black;
+}
+
+
+/*style of title */
+h1{
+    font-size: 2.5em;
+    margin:20px 0;
+    text-align:center;
+}
+
+
+/* style of the paragraphe */
+p{
+    font-size: 1em;
+    margin:10px 0;
+    line-height: 1.5;
+    text-align: justify;
+    text-indent: 20px;
+}
