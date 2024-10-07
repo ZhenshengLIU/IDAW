@@ -21,13 +21,24 @@
     <h1>Feed question and Smart cat will give u an answer</h1>
     <div class="search-container">
         <form action="https://www.google.com/search" method="GET">
-            <label for="query">Question c'est?:</label>
             <input type="text" id="query" name="q" required>
-            <button type="submit">Feed</button>
+            <button type="submit" id="search-button">Feed</button>
         </form>
     </div>
     <!-- content end -->
 </body>
+
+<script>
+    const button=document.getElementById('search-button');
+    const container=document.querySelector('.search-container');
+    button.addEventListener('mouseenter', () => {
+        container.style.backgroundImage = "url('images/mouthclose.jpg')";
+    });
+
+    button.addEventListener('mouseleave', () => {
+        container.style.backgroundImage = "url('images/mouthopen.jpg')";
+    });
+</script>
 
 <!--footer begin-->
 <footer class="footer">
