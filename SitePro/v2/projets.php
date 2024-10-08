@@ -3,7 +3,7 @@ require_once('template_header.php');
 ?>
     <!-- menu begin -->
     <?php
-        require_once('template_menu.php')
+        require_once('template_menu.php');
         renderMenuToHTML('projets');
     ?>
     <!-- menu end -->
