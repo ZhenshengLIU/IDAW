@@ -11,7 +11,7 @@ function renderMenuToHTML($currentPageId) {
         echo'<ul>';
         foreach($mymenu as $pageId => $pageParameters) {
         echo '<li>';
-            if ($pageId=$currentPageId){
+            if ($pageId==$currentPageId){
                 echo'<a class="currentpage" href="'.$pageId.'.php">'.$pageParameters[0].'</a>';
             } else {
                 echo'<a href="'.$pageId.'.php">'.$pageParameters[0].'</a>';
