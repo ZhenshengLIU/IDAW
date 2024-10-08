@@ -7,10 +7,10 @@ require_once('template_header.php');
         renderMenuToHTML('cv');
     ?>
     <!-- menu end -->
-    <div class="contenu">
+    <body class="cv-body">
     <h1 style="text-align:center">CV</h1>
     <!-- content begin -->
-        <div class="container">
+        <div class="cv-container">
             <!-- left column -->
             <div class="leftsidebar">
                 <img src="images/cat.jpg" alt="Crying Cat" class="selfie">
@@ -63,7 +63,6 @@ require_once('template_header.php');
                 </ul>
             </div>
         </div>
-    </div>
     </body>
     </html>
        

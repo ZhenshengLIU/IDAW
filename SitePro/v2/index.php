@@ -7,18 +7,18 @@ require_once('template_header.php');
         renderMenuToHTML('index');
     ?>
     <!-- menu end -->
-    <div class="contenu">
+    <body class="index-body">
     <!-- content begin -->
-    <h1>Qui suis-je?</h1>
+    <h1 class="index-p">Qui suis-je?</h1>
     <em style="font-size:20px;color:red;">A smart cat</em>
-    <p style="text-align:center">Feed me a question and i will give u an answer</p>
+    <p class="index-p" style="text-align:center">Feed me a question and i will give u an answer</p>
     <div class="search-container">
         <form action="https://www.google.com/search" method="GET">
             <input type="text" id="query" name="q" required>
             <button type="submit" id="search-button">Feed</button>
         </form>
     </div>
-    </div>
+    
     <!-- content end -->
 </body>
 
