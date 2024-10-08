@@ -57,7 +57,7 @@
 
 .box2 {
     background-color: #f39c12; 
-    flex-basis: 45%;
+    flex-basis: 50%;
     height: 200px;
 }
 
@@ -70,14 +70,14 @@
 .box4 {
     background-color: #e74c3c; 
     flex-basis: 20%;
-    height: 100px;
+    height: 200px;
 }
 
-.box5 {
+/* .box5 {
     background-color: #3498db; 
     flex-basis: 25%;
     height: 100px;
-}
+} */
 
 .box6 {
     background-color: #f39c12; 
