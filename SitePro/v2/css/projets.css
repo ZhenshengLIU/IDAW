@@ -1,40 +1,3 @@
-/*style of menu*/
-.menu {
-    background-color: #90b9f3; 
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-.menu ul {
-    list-style-type: none;  
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;  
-}
-
-.menu li {
-    flex:1;
-    text-align:center; 
-}
-
-.menu li a {
-    display: block;  
-    color: #fff;  
-    padding: 14px 20px;  
-    text-decoration: none;  
-    text-align: center;  
-
-}
-
-.menu li a:hover {
-    background-color: #111; 
-}
-
-.menu li a.currentpage{
-    border : 2px solid black;
-}
-
 
 .flex-container {
     display: flex;
@@ -97,11 +60,11 @@
     height: 100px;
 }
 
-h2{
+.projets-h2{
     text-align: center;
 }
 
-p{
+.projets-p{
     padding-left:30px;
     padding-right:30px;
 }
