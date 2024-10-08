@@ -1,8 +1,9 @@
-/*style of menu*/
+/*menu*/
 .menu {
     background-color: #90b9f3; 
     overflow: hidden;
     margin-bottom: 20px;
+    margin-top:20px;
 }
 
 .menu ul {
@@ -34,6 +35,7 @@
 .menu li a.currentpage{
     border : 2px solid black;
 }
+
 
 
 .flex-container {
