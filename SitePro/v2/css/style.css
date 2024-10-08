@@ -1,0 +1,132 @@
+/*style of menu*/
+/*menu*/
+.menu {
+    background-color: #90b9f3; 
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-top:20px;
+}
+
+.menu ul {
+    list-style-type: none;  
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;  
+}
+
+.menu li {
+    flex:1;
+    text-align:center; 
+}
+
+.menu li a {
+    display: block;  
+    color: #fff;  
+    padding: 14px 20px;  
+    text-decoration: none;  
+    text-align: center;  
+
+}
+
+.menu li a:hover {
+    background-color: #111; 
+}
+
+.menu li a.currentpage{
+    border : 2px solid black;
+}
+
+
+
+/*style of title */
+h1{
+    font-size: 2.5em;
+    margin:20px 0;
+    text-align:center;
+}
+
+.contenu{
+    font-family: 'Times New Roman', sans-serif;
+    text-align: center;
+    padding-top:50px;
+    margin:0px;
+    
+}
+/* style of the paragraphe */
+p{
+    font-size: 1em;
+    margin:10px 0;
+    line-height: 1.5;
+    text-align: justify;
+    text-indent: 20px;
+}
+
+/* style of the footer */
+footer{
+    margin:500px 0px 20px 0px;
+}
+
+
+
+
+/* search part */
+
+.search-container{
+    position: relative;
+    display: inline-block;
+    width:400px;
+    height:300px;
+    background: url('../images/mouthopen.jpg') no-repeat center;
+    background-size: cover;
+    padding:20px;
+    border-radius: 8px;
+}
+
+
+
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-top:130px;
+    margin-bottom: 10px;
+    z-index:2;
+    background: transparent;
+    position: relative;
+}
+/*
+.search-container::before{
+    content: "";
+    background: url('../images/mouth.jpg') no-repeat center;
+    background-size: cover;
+    position: absolute;
+    height: 100px;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: 1;
+    border-radius: 8px;
+    
+}
+*/
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2;;
+}
+
+
+button:hover {
+    background-color: #45a049;
+}
