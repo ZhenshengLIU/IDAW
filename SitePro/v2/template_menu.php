@@ -1,11 +1,3 @@
-<nav class="menu">
-        <ul>
-            <li><a class="currentpage" href="index.html">Accueil</a></li>
-            <li><a href="cv.html">CV</a></li>
-            <li><a href="projets.html">Projets</a></li>
-        </ul>
-</nav>
-
 <?php
 function renderMenuToHTML($currentPageId) {
     $mymenu = array(
