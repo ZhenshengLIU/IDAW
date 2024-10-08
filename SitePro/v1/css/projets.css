@@ -52,20 +52,23 @@
 
 .box2 {
     background-color: #f39c12; 
-    flex-basis: 46%;
+    flex-basis: 45%;
     height: 200px;
+    flex-grow:1;
 }
 
 .box3 {
     background-color: #1abc9c; 
-    flex-basis: 46%;
+    flex-basis: 45%;
     height: 300px;
+    flex-grow:1;
 }
 
 .box4 {
     background-color: #e74c3c; 
     flex-basis: 48%;
     height: 200px;
+    flex-grow:1;
 }
 
 /* .box5 {
@@ -78,12 +81,14 @@
     background-color: #f39c12; 
     flex-basis: 23%;
     height: 100px;
+    flex-grow:1;
 }
 
 .box7 {
     background-color: #e74c3c; 
     flex-basis: 23%;
     height: 100px;
+    flex-grow:1;
 }
 
 .box8 {
@@ -92,3 +97,11 @@
     height: 100px;
 }
 
+h2{
+    text-align: center;
+}
+
+p{
+    padding-left:30px;
+    padding-right:30px;
+}
