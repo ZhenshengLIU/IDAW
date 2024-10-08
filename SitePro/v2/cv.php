@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV
-    </title>
-    <link rel="stylesheet" type="text/css" href="css/CV.css" />
-</head>
-<body>
+<?php
+require_once('template_header.php');
+?>    
     <!-- menu begin -->
-    <nav class="menu">
-        <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a class="currentpage" href="cv.html">CV</a></li>
-            <li><a href="projets.html">Projets</a></li>
-        </ul>
-    </nav>
+    <?php
+        require_once('template_menu.php')
+        renderMenuToHTML('cv');
+    ?>
     <!-- menu end -->
     <div class="contenu">
     <h1 style="text-align:center">CV</h1>
