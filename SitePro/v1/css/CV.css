@@ -3,7 +3,6 @@
     background-color: #90b9f3; 
     overflow: hidden;
     margin-bottom: 20px;
-    margin-top:20px;
 }
 
 .menu ul {
@@ -40,14 +39,6 @@
 
 
 /* global */
-body {
-    font-family: 'Times New Roman', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-
-
-}
 
 /* CV container */
 .container {
