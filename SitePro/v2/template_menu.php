@@ -1,7 +1,6 @@
 <?php
 function renderMenuToHTML($currentPageId) {
     $mymenu = array(
-        // idPage titre
         'index' => array( 'Accueil' ),
         'cv' => array( 'CV' ),
         'projets' => array('Mes Projets')
@@ -27,9 +26,6 @@ function renderMenuToHTML($currentPageId) {
 }
 
 ?>
-
-       
-        // ...
 
 
 
