@@ -3,7 +3,6 @@
     background-color: #90b9f3; 
     overflow: hidden;
     margin-bottom: 20px;
-    margin-top:20px;
 }
 
 .menu ul {
@@ -11,11 +10,11 @@
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;  
+    justify-content: space-between;  
 }
 
 .menu li {
-    flex:none;
+    flex:1;
     text-align:center; 
 }
 
@@ -35,7 +34,6 @@
 .menu li a.currentpage{
     border : 2px solid black;
 }
-
 
 
 /*style of title */
