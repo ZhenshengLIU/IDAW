@@ -15,7 +15,7 @@ function renderMenuToHTML($currentPageId) {
             } else {
                 echo'<a href="'.$pageId.'.php">'.$pageParameters[0].'</a>';
             }
-            echo'<li>';
+            echo'</li>';
 
             }
            
