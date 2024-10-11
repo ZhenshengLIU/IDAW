@@ -36,6 +36,16 @@ require_once('template_header.php');
         exit;
     }
     ?>
+
+    <?php
+    
+    if (isset($_SESSION['login'])) {
+        echo "Bonjour, " . htmlspecialchars($_SESSION['login']) . "! <a href='logout.php'>Se déconnecter</a>";
+    } else {
+        echo "Vous n'êtes pas connecté. <a href='login.php'>Se connecter</a>";
+    }
+    ?>
+
     <!-- content end -->
 </body>
 
