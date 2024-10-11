@@ -18,7 +18,24 @@ require_once('template_header.php');
             <button type="submit" id="search-button">Feed</button>
         </form>
     </div>
-    
+
+    <form id="style_form" action="index.php" method="GET">
+        <select name="css">
+            <option value="style1">style1</option>
+            <option value="style2">style2</option>
+        </select>
+        <input type="submit" value="Appliquer" />
+    </form>
+
+    <?php
+    if (isset($_GET['css'])) {
+
+        $styleChoisi = $_GET['css'];
+        setcookie('css', $styleChoisi, time() + (30 * 24 * 60 * 60));
+        header('Location: index.php');
+        exit;
+    }
+    ?>
     <!-- content end -->
 </body>
 
