@@ -38,7 +38,7 @@ require_once('template_header.php');
     ?>
 
     <?php
-    
+    session_start();
     if (isset($_SESSION['login'])) {
         echo "Bonjour, " . htmlspecialchars($_SESSION['login']) . "! <a href='logout.php'>Se déconnecter</a>";
     } else {
