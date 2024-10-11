@@ -20,6 +20,6 @@ if ($login == 'admin' && $password == '1234567') {
     echo "Bienvenue, " . htmlspecialchars($login) . "! Vous êtes connecté.";
     echo "<br><a href='index.php'>Aller à l'accueil</a>";
 } else {
-    echo "Login ou mot de passe incorrect.";
+    echo "<br>Login ou mot de passe incorrect.";
 }
 ?>
