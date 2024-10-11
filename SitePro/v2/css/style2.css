@@ -1,6 +1,6 @@
 /*style of menu*/
 .menu {
-    background-color: #90b9f3; 
+    background-color: #90f3c2; 
     overflow: hidden;
     margin-bottom: 20px;
 }
@@ -28,7 +28,7 @@
 }
 
 .menu li a:hover {
-    background-color: #111; 
+    background-color: #05f679; 
 }
 
 .menu li a.currentpage{
