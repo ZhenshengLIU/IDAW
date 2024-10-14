@@ -16,7 +16,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
 
-    $sql = file_get_contents('sql/create_db.sql');
+    $sql = file_get_contents('create_db.sql');
     
     if ($sql === false) {
         throw new Exception('Cannot read SQL file.');
