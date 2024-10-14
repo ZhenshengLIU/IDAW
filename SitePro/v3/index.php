@@ -45,7 +45,7 @@ require_once('template_header.php');
         echo "Vous n'êtes pas connecté. <a href='login_post.php'>Se connecter</a>";
     }
     ?>
-
+    
     <!-- content end -->
 </body>
 
