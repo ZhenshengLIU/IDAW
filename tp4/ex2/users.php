@@ -25,7 +25,7 @@ try {
 }
 
 // 准备 SQL 查询
-$request = $pdo->prepare("SELECT * FROM User");
+$request = $pdo->prepare("SELECT * FROM users");
 
 try {
     // 执行查询
@@ -41,7 +41,7 @@ try {
     foreach ($results as $row) {
         echo "<tr>";
         echo "<td>" . htmlspecialchars($row->id) . "</td>";
-        echo "<td>" . htmlspecialchars($row->username) . "</td>";
+        echo "<td>" . htmlspecialchars($row->name) . "</td>";
         echo "<td>" . htmlspecialchars($row->email) . "</td>";
         echo "</tr>";
     }
