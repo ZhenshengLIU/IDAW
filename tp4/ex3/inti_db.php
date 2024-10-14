@@ -1,20 +1,29 @@
 <?php
-
-$host = 'localhost'; 
-$dbname = 'newdatabasetest'; 
-$username = 'root'; 
-$password = 'root'; 
+// 数据库连接信息
+$host = 'localhost';  // 数据库主机
+$user = 'root';  // 数据库用户名
+$password = 'root';  // 数据库密码
+$dbname = 'newdatabasetest';  // 新数据库名称
+$sqlFilePath = 'create_db.sql';  // .sql 文件路径
 
 try {
 
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO("mysql:host=$host", $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
- 
-    $sql = file_get_contents('create_db.sql');
 
-    $pdo->exec($sql);
+    $pdo->exec("CREATE DATABASE `$dbname`");
+    echo "database `$dbname` create sucessfully。<br>";
+
+    $pdo->exec("USE `$dbname`");
+
+
+    $sql = file_get_contents($sqlFilePath);
     
+ 
+    $pdo->exec($sql);
+    echo "SQL document has been excuted sucessfully。<br>";
+     
     echo "create sucessfully";
 
     $query = "SELECT * FROM `users`"; 
