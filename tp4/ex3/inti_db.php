@@ -1,10 +1,10 @@
 <?php
-// 数据库连接信息
-$host = 'localhost';  // 数据库主机
-$user = 'root';  // 数据库用户名
-$password = 'root';  // 数据库密码
-$dbname = 'newdatabasetest';  // 新数据库名称
-$sqlFilePath = 'create_db.sql';  // .sql 文件路径
+
+$host = 'localhost';  
+$user = 'root';  
+$password = 'root';  
+$dbname = 'newdatabasetest';  
+$sqlFilePath = 'create_db.sql';  
 
 try {
 
