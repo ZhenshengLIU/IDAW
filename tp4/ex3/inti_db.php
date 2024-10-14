@@ -1,7 +1,7 @@
 <?php
 
 $host = 'localhost'; 
-$dbname = 'autocreate_db'; 
+$dbname = 'create_db'; 
 $username = 'root'; 
 $password = 'root'; 
 
