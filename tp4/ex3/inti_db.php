@@ -24,7 +24,6 @@ try {
     $pdo->exec($sql);
     echo "SQL document has been excuted sucessfully。<br>";
      
-    echo "create sucessfully";
 
     $query = "SELECT * FROM `users`"; 
     $stmt = $pdo->query($query);
