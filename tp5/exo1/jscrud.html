@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <title>tabletest</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <table>
+        <caption>User Table</caption>
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Aime le cours Web</th>
+                <th scope="col">Remarques</th>
+                <th scope="col">CRUD</th>
+            </tr>
+        </thead> 
+        <tbody id="studentsTableBody">
+            <tr>
+                <td>Darth</td>
+                <td>Vader</td>
+                <td>12/10/2024</td>
+                <td>oui</td>
+                <td class="td_tal">I am ur father</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Anakin</td>
+                <td>Skywalker</td>
+                <td>12/10/2024</td>
+                <td>oui</td>
+                <td class="td_tal">I am also ur father</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Luke</td>
+                <td>Skywalker</td>
+                <td>12/10/2050</td>
+                <td>oui</td>
+                <td class="td_tal">Obi-wan has the high ground.Yesssssss</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form_container">
+        <form class="form">
+            <div class="form_row">
+                <label for="name">Nom*</label>
+                <input type="search" id="name" name="name">
+            </div>
+            <div class="form_row">
+                <label for="surname">Prenom</label>
+                <input type="search" id="surname" name="surname">
+            </div>
+            <div class="form_row">
+                <label for="dob">Date de naissance</label>
+                <input type="search" id="dob" name="dob" placeholder="jj/mm/aaaa">
+            </div>
+            <div class="form_row">
+                <label for="course">Adore le cours*</label>
+                <input type="checkbox" id="course" name="course">
+            </div>
+            <div class="form_row">
+                <label for="remarks">Remarques</label>
+                <input type="search" id="remarks" name="remarks">
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+    function onFormSubmit() {
+    // prevent the form to be sent to the server
+    event.preventDefault();
+    let nom = $("#inputNom").val();
+    $("#studentsTableBody").append(`<tr><td>${nom}</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`);
+    }
+    </script>
+</body>
+</html>
