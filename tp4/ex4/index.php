@@ -10,7 +10,7 @@ $selectedUser = ['id' => '', 'name' => '', 'email' => ''];
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (isset($_POST['select'])) {
         if ($selectedUser['id'] == $_POST['id']) {
-            header('Location:index.php');
+            header('Location: index.php');
         } else {
             $selectedUser['id'] = $_POST['id'];
             $selectedUser['name'] = $_POST['name'];
