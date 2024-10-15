@@ -1,24 +1,31 @@
 <?php
 
+session_start();
+
 require_once('config.php');
 
 $pdo=new PDO("mysql:host=" . _MYSQL_HOST . ";port=" . _MYSQL_PORT . ";dbname=" . _MYSQL_DBNAME, _MYSQL_USER, _MYSQL_PASSWORD);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO:: ERRMODE_EXCEPTION);
 
-$selectedUser = ['id' => '', 'name' => '', 'email' => ''];
+
+if(!isset($_SESSION['selectedUser'])){
+    $$_SESSION['selectedUser'] = ['id' => '', 'name' => '', 'email' => ''];
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (isset($_POST['select'])) {
-        if ($selectedUser['id'] == $_POST['id']) {
-            header('Location: index.php');
-        } else {
-            $selectedUser['id'] = $_POST['id'];
-            $selectedUser['name'] = $_POST['name'];
-            $selectedUser['email'] = $_POST['email'];
-        }
+            if ($_SESSION['selectedUser']['id'] == $_POST['id']) {
+                $_SESSION['selectedUser'] = ['id' => '', 'name' => '', 'email' => ''];
+            } else {
+                $_SESSION['selectedUser']['id'] = $_POST['id'];
+                $_SESSION['selectedUser']['name'] = $_POST['name'];
+                $_SESSION['selectedUser']['email'] = $_POST['email'];
+            }   
     } elseif (isset($_POST['add'])) {
         $stmt = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
         $stmt->execute([$_POST['name'], $_POST['email']]);
+        header('Location: ' . $_SERVER['PHP_SELF']); 
+        exit;
 
     } elseif (isset($_POST['edit'])) {
         $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
@@ -27,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     } elseif (isset($_POST['delete'])) {
         $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
         $stmt->execute([$_POST['id']]);
-        $selectedUser = ['id' => '', 'name' => '', 'email' => ''];
+        $_SESSION['selectedUser'] = ['id' => '', 'name' => '', 'email' => ''];
     }
 }
 
@@ -55,7 +62,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th></th>
         </tr>
         <?php foreach ($users as $user): ?>
-        <tr class="<?= $user['id'] == $selectedUser['id'] ? 'selected' : '' ?>">
+        <tr class="<?= $user['id'] == $_SESSION['selectedUser']['id']? 'selected' : '' ?>">
             <td><?= htmlspecialchars($user['id']) ?></td>
             <td><?= htmlspecialchars($user['name']) ?></td>
             <td><?= htmlspecialchars($user['email']) ?></td>
@@ -74,16 +81,16 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <h2>Add/Edit/Delete User</h2>
     <form method="POST">
-        <input type="hidden" name="id" value="<?= $selectedUser['id'] ?>">
+        <input type="hidden" name="id" value="<?= $_SESSION['selectedUser']['id'] ?>">
 
 
-        name: <input type="text" name="name" value="<?= htmlspecialchars($selectedUser['name']) ?>" required><br>
-        email: <input type="text" name="email" value="<?= htmlspecialchars($selectedUser['email']) ?>" required><br>
+        name: <input type="text" name="name" value="<?= htmlspecialchars($_SESSION['selectedUser']['name']) ?>" required><br>
+        email: <input type="text" name="email" value="<?= htmlspecialchars($_SESSION['selectedUser']['email'])?>" required><br>
         
         <div class="button-group">
-        <button type="submit" name="add" <?= $selectedUser['id'] ? 'disabled' : '' ?>>Add</button>
-        <button type="submit" name="edit" <?= $selectedUser['id'] ? '' : 'disabled' ?>>Edit</button>
-        <button type="submit" name="delete" <?= $selectedUser['id'] ? '' : 'disabled' ?>>Delete</button>
+        <button type="submit" name="add" <?= $_SESSION['selectedUser']['id']  ? 'disabled' : '' ?>>Add</button>
+        <button type="submit" name="edit" <?= $_SESSION['selectedUser']['id'] ? '' : 'disabled' ?>>Edit</button>
+        <button type="submit" name="delete" <?= $_SESSION['selectedUser']['id']  ? '' : 'disabled' ?>>Delete</button>
         </div>
 
 
