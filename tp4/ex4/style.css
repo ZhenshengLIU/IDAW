@@ -25,6 +25,15 @@ form {
     flex-direction: column;
     align-items: center;
 }
+
+.circle-button{
+    width: 20px;
+    height: 20px;
+    background-color: #5b9bfc;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
 input[type="text"] {
     margin-bottom: 10px;
     padding: 8px;
@@ -32,11 +41,26 @@ input[type="text"] {
 }
 button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #5b9bfc;
     color: white;
     border: none;
     cursor: pointer;
+    margin-top: 10px;
+}
+button:disabled{
+    background-color:#999;
+    cursor: not-allowed;
 }
 button:hover {
-    background-color: #45a049;
+    background-color: #305fe0;
+}
+
+.button-group{
+    display:flex;
+    gap:10px;
+}
+
+
+.selected {
+    background-color: #918f8f; 
 }
