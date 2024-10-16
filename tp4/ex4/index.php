@@ -9,7 +9,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO:: ERRMODE_EXCEPTION);
 
 
 if(!isset($_SESSION['selectedUser'])){
-    $$_SESSION['selectedUser'] = ['id' => '', 'name' => '', 'email' => ''];
+    $_SESSION['selectedUser'] = ['id' => '', 'name' => '', 'email' => ''];
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){

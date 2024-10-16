@@ -6,6 +6,20 @@
 - **method**: `GET`
 - **response**: return a json contain all infos
 
+## 1.1 get specific user info
+
+- **URL**: `/users.php`
+- **method**: `GET`
+- **Requestbody**:
+     ```json
+    {
+        "id":"id"
+    }
+    ```
+- **response**: 
+    - when succeed return user info
+    - when error return `404 not found`。
+
 ## 2. create new user
 
 - **URL**: `/users.php`

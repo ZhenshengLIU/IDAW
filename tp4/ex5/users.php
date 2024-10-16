@@ -1,11 +1,20 @@
 <?php
     require_once("init_pdo.php");
 
-    function get_users($pdo){
+    function get_allusers($pdo){
         $sql = "SELECT * FROM users";
         $exe = $pdo->query($sql);
         $res = $exe->fetchAll(PDO::FETCH_OBJ);
         return $res;
+    }
+
+    function get_specificuser($pdo, $id){
+        $sql = "SELECT * FROM users WHERE id = :id" ;
+        $stmt = $pdo ->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $res ? $res : "user not found";
     }
 
     function create_user($pdo, $name, $email) {
@@ -27,7 +36,7 @@
     }
     
     function delete_user($pdo, $id) {
-        $sql = "DELETE FROM USER WHERE id = :id";
+        $sql = "DELETE FROM users WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
@@ -44,9 +53,19 @@ setHeaders();
     switch($_SERVER["REQUEST_METHOD"]) {
 
         case 'GET':
-        $result = get_users($pdo);
-        exit(json_encode($result));
-
+            $data=json_decode(file_get_contents("php://input"),true);
+            if (isset($data['id'])){
+                $user= get_specificuser($pdo,$data['id']);
+                if (isset($user)){
+                    exit(json_encode($user));
+                }else{
+                    http_response_code(404); 
+                    exit(json_encode($user));
+                }
+            }else{
+                $result = get_allusers($pdo);
+                exit(json_encode($result));
+            }
 
         case 'POST':
             $data = json_decode(file_get_contents("php://input"), true);
@@ -75,25 +94,25 @@ setHeaders();
                 exit(json_encode(['error' => 'Invalid input']));
             }
         
-            case 'DELETE':
-                $data = json_decode(file_get_contents("php://input"), true);
-                if (isset($data['id'])) {
-                    $success = delete_user($pdo, $data['id']);
-                    if ($success) {
-                        http_response_code(204); 
-                        exit();
-                    } else {
-                        http_response_code(404); 
-                        exit(json_encode(['error' => 'User not found']));
-                    }
+        case 'DELETE':
+            $data = json_decode(file_get_contents("php://input"), true);
+            if (isset($data['id'])) {
+                $success = delete_user($pdo, $data['id']);
+                 if ($success) {
+                    http_response_code(204); 
+                    exit(json_encode(['message' => 'User deleted successfully']));
                 } else {
-                    http_response_code(400);
-                    exit(json_encode(['error' => 'Invalid input']));
+                    http_response_code(404); 
+                    exit(json_encode(['error' => 'User not found']));
                 }
+            } else {
+                http_response_code(400);
+                exit(json_encode(['error' => 'Invalid input']));
+            }
         
-            default:
-                http_response_code(405); 
-                exit(json_encode(['error' => 'Method not allowed']));
+         default:
+            http_response_code(405); 
+            exit(json_encode(['error' => 'Method not allowed']));
 
 
     }
