@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script> -->
+    <title>tabletest</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script tyle="text/javascript" src="js.js"></script>
+</head>
+<body>
+    <table>
+        <caption>User Table</caption>
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">CRUD</th>
+            </tr>
+        </thead> 
+        <tbody id="usersTableBody">
+        <!-- script add row -->
+        </tbody>
+    </table>
+
+    <div class="form_container">
+        <form class="form">
+            <div class="form_row">
+                <label for="name">Nom</label>
+                <input type="search" id="name" name="name">
+            </div>
+            <div class="form_row">
+                <label for="surname">Email</label>
+                <input type="search" id="email" name="email">
+            </div>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+</body>
+</html>

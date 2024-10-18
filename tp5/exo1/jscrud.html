@@ -3,7 +3,8 @@
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="js.js"></script>
     <title>tabletest</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -26,8 +27,13 @@
                 <td>Vader</td>
                 <td>12/10/2024</td>
                 <td>oui</td>
-                <td class="td_tal">I am ur father</td>
-                <td></td>
+                <td>I am ur father</td>
+
+                <!-- this points to the element, here is the button which is clicked, so that in js we can locate -->
+                <td>
+                    <button onclick="editRow(this)">Edit</button>
+                    <button onclick="deleteRow(this)">Delete</button>
+                </td>
             </tr>
 
             <tr>
@@ -35,8 +41,11 @@
                 <td>Skywalker</td>
                 <td>12/10/2024</td>
                 <td>oui</td>
-                <td class="td_tal">I am also ur father</td>
-                <td></td>
+                <td>I am also ur father</td>
+                <td>
+                    <button onclick="editRow(this)">Edit</button>
+                    <button onclick="deleteRow(this)">Delete</button>
+                </td>
             </tr>
 
             <tr>
@@ -44,8 +53,11 @@
                 <td>Skywalker</td>
                 <td>12/10/2050</td>
                 <td>oui</td>
-                <td class="td_tal">Obi-wan has the high ground.Yesssssss</td>
-                <td></td>
+                <td>Obi-wan has the high ground.Yesssssss</td>
+                <td>
+                    <button onclick="editRow(this)">Edit</button>
+                    <button onclick="deleteRow(this)">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -65,24 +77,15 @@
                 <input type="search" id="dob" name="dob" placeholder="jj/mm/aaaa">
             </div>
             <div class="form_row">
-                <label for="course">Adore le cours*</label>
+                <label for="course">Adore le cours</label>
                 <input type="checkbox" id="course" name="course">
             </div>
             <div class="form_row">
                 <label for="remarks">Remarques</label>
                 <input type="search" id="remarks" name="remarks">
             </div>
-            <input type="submit" value="Submit">
+            <input type="submit" value="submit">
         </form>
     </div>
-
-    <script>
-    function onFormSubmit() {
-    // prevent the form to be sent to the server
-    event.preventDefault();
-    let nom = $("#inputNom").val();
-    $("#studentsTableBody").append(`<tr><td>${nom}</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`);
-    }
-    </script>
 </body>
 </html>

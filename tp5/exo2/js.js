@@ -1,0 +1,188 @@
+function getdata(){
+    fetch('../../tp4/ex5/users.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data !=="") {
+                data.forEach(user => {
+                let newrow = `<tr>
+                                    <td>${user.id}</td>
+                                    <td>${user.name}</td>
+                                    <td>${user.email}</td>
+                                    <td>
+                                        <button onclick="editRow(this)">Edit</button>
+                                        <button onclick="deleteRow(this)">Delete</button>
+                                    </td>
+                            </tr>`;
+
+                document.getElementById('usersTableBody').insertAdjacentHTML('beforeend', newrow);
+
+                });
+            } else {
+                alert("Error from API   " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error',error)
+        })
+
+}
+
+
+
+
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    getdata();
+
+    // submit the form
+    document.querySelector('.form').addEventListener('submit',function(event){
+
+        //Cancel the default action of event
+        event.preventDefault();
+
+        // get the value in the form
+        let name = document.getElementById('name').value.trim();
+        let email = document.getElementById('email').value.trim();
+
+        
+        // if name is entered, prepare the request body
+        if(name !== ""){
+            let Requestbody = {
+                name : name,
+                email : email
+            }
+            
+                fetch('../../tp4/ex5/users.php',{
+                method : 'POST',
+                headers : {
+                    'Content-type' : 'application/json',
+                },
+                body : JSON.stringify(Requestbody)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data !=="" ) {
+                    let newrow = `<tr>
+                                        <td>${data.id}</td>
+                                        <td>${name}</td>
+                                        <td>${email}</td>
+                                        <td>
+                                            <button onclick="editRow(this)">Edit</button>
+                                            <button onclick="deleteRow(this)">Delete</button>
+                                        </td>
+                                </tr>`;
+
+                    document.getElementById('usersTableBody').insertAdjacentHTML('beforeend', newrow);
+
+                    //reset the form
+                    document.querySelector('.form').reset();
+
+                }else{
+                    alert("Error from API" + data.message);
+                }
+                
+            })
+
+            .catch(error =>{
+                console.error('Error',error);
+                alert('An error while sending request');
+            })
+        } else {
+            alert("You should enter the name");
+        }
+    })
+});
+
+
+
+
+function deleteRow(button){
+
+    let row_to_be_deleted = button.closest('tr');
+    let userID = row_to_be_deleted.cells[0].textContent;
+    let requestbody={
+        id : userID
+    };
+
+        fetch('../../tp4/ex5/users.php',{
+        method : 'DELETE',
+        headers : {
+            'Content-type' : 'application/json',
+        },
+        body : JSON.stringify(requestbody)
+        })
+    .then(response=> {
+        if (response.status === 204){
+            row_to_be_deleted.parentNode.removeChild(row_to_be_deleted);
+            console.log('delete successful');
+            alert('delete successful');
+        }else{
+            console.log('delete uncessful',response.status);
+            alert('delete unsuccessful');
+        }
+    })  
+
+    
+
+}
+
+
+function editRow(button) {
+    let row_to_be_edited = button.closest('tr');
+    let cells = row_to_be_edited.cells;
+
+    for (let i= 1; i<cells.length-1;i++){
+        // skip the 1st column, id cant be modified.
+        let originaldata = cells[i].textContent;
+        cells[i].innerHTML= `<input type="text" value="${originaldata}">`;
+    }
+    cells[cells.length-1].innerHTML=`<button onclick="confirmEdit(this)">Confirm</button>
+                                     <button onclick="deleteRow(this)">Delete</button>`
+
+
+}
+
+
+function confirmEdit(button) {
+    let row = button.closest('tr'); 
+    let cells = row.cells; 
+    let requestbody = {};
+    let headers = document.querySelectorAll('thead th');
+
+    requestbody.id=cells[0].textContent;
+
+    for (let i = 1; i < cells.length - 1; i++) { 
+        let input = cells[i].querySelector('input');
+        let fieldName = headers[i].textContent.toLowerCase();
+        requestbody[fieldName] = input.value;
+    }
+
+
+    fetch('../../tp4/ex5/users.php',{
+        method: 'PUT', 
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(requestbody) 
+    })
+    .then(response => {
+        if (response.status === 200 ) {
+            alert('update success');
+        } else {
+            alert('update failed: ' + response.status);
+        }
+    })
+    .catch(error => {
+        console.error('error:', error);
+        alert('error: ' + error.message);
+    });
+
+    for (let i = 1; i < cells.length - 1; i++) { 
+        let input = cells[i].querySelector('input');
+        cells[i].textContent = input.value; 
+    }
+    
+    cells[cells.length - 1].innerHTML = `<button onclick="editRow(this)">Edit</button>
+                                          <button onclick="deleteRow(this)">Delete</button>`;
+}

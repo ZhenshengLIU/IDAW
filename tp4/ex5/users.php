@@ -2,6 +2,7 @@
     require_once("init_pdo.php");
 
     function get_allusers($pdo){
+        //$name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
         $sql = "SELECT * FROM users";
         $exe = $pdo->query($sql);
         $res = $exe->fetchAll(PDO::FETCH_OBJ);
@@ -48,25 +49,20 @@
     }
 
 
-setHeaders();
+    setHeaders();
 
     switch($_SERVER["REQUEST_METHOD"]) {
 
         case 'GET':
-            $data=json_decode(file_get_contents("php://input"),true);
-            if (isset($data['id'])){
-                $user= get_specificuser($pdo,$data['id']);
-                if (isset($user)){
-                    exit(json_encode($user));
-                }else{
-                    http_response_code(404); 
-                    exit(json_encode($user));
-                }
-            }else{
-                $result = get_allusers($pdo);
-                exit(json_encode($result));
+            $result = get_allusers($pdo);
+            if ($result) {
+                exit(json_encode($result)); 
+            } else {
+                http_response_code(404); 
+                exit(json_encode(['message' => 'No users found.']));
             }
-
+            break;
+            
         case 'POST':
             $data = json_decode(file_get_contents("php://input"), true);
             if (isset($data['name']) && isset($data['email'])) {
