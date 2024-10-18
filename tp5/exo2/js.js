@@ -1,34 +1,22 @@
+let all_users=[];   
+
 function getdata(){
     fetch('../../tp4/ex5/users.php')
         .then(response => response.json())
         .then(data => {
             if (data !=="") {
-                data.forEach(user => {
-                let newrow = `<tr>
-                                    <td>${user.id}</td>
-                                    <td>${user.name}</td>
-                                    <td>${user.email}</td>
-                                    <td>
-                                        <button onclick="editRow(this)">Edit</button>
-                                        <button onclick="deleteRow(this)">Delete</button>
-                                    </td>
-                            </tr>`;
-
-                document.getElementById('usersTableBody').insertAdjacentHTML('beforeend', newrow);
-
-                });
-            } else {
+                all_users = data;
+                load_Table(all_users);
+            }else {
                 alert("Error from API   " + data.message);
             }
         })
         .catch(error => {
             console.error('Error',error)
+            alert('Failed to get data.');
         })
 
 }
-
-
-
 
 
 document.addEventListener("DOMContentLoaded",function(){
@@ -92,10 +80,43 @@ document.addEventListener("DOMContentLoaded",function(){
             alert("You should enter the name");
         }
     })
+    
+
+    document.getElementById('searchButton').addEventListener('click', function() {
+        let searchQuery = document.getElementById('searchField').value.trim();
+        searchUsers(searchQuery);
+    });
+
 });
 
 
 
+function load_Table(users) {
+    const tableBody = document.getElementById('usersTableBody');
+    tableBody.innerHTML = ''; 
+
+    users.forEach(user => {
+        let newRow = `<tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>
+                <button onclick="editRow(this)">Edit</button>
+                <button onclick="deleteRow(this)">Delete</button>
+            </td>
+        </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', newRow);
+    });
+}
+
+
+function searchUsers(query) {
+    const filteredUsers = all_users.filter(user => {
+        return user.id.includes(query) || user.name.includes(query) || user.email.includes(query);
+    });
+
+    load_Table(filteredUsers); 
+}
 
 function deleteRow(button){
 

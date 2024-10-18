@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Search</title>
+    <link rel="stylesheet" href="styles.css"> <!-- 引入外部 CSS -->
+</head>
+<body>
+    <h1>User Search</h1>
+
+    <!-- 搜索栏 -->
+    <input type="text" id="searchField" placeholder="Search by ID, Name, or Email">
+    <button id="searchButton">Search</button>
+
+    <!-- 表格 -->
+    <table id="studentsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentsTableBody">
+            <!-- 数据行将在这里填充 -->
+        </tbody>
+    </table>
+
+    <script src="testjs.js"></script>
+</body>
+</html>
