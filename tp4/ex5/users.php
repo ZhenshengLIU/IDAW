@@ -95,7 +95,7 @@
             if (isset($data['id'])) {
                 $success = delete_user($pdo, $data['id']);
                  if ($success) {
-                    http_response_code(204); 
+                    http_response_code(200); 
                     exit(json_encode(['message' => 'User deleted successfully']));
                 } else {
                     http_response_code(404); 

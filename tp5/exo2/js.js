@@ -89,7 +89,11 @@ document.addEventListener("DOMContentLoaded",function(){
                     //reset the form
                     document.querySelector('.form').reset();
 
-                    getdata();
+                    all_users.push({
+                        id : data.id,
+                        name : name ,
+                        email : email
+                    })
 
                 }else{
                     alert("Error from API" + data.message);
@@ -156,6 +160,7 @@ function deleteRow(button){
 
 
 function editRow(button) {
+
     let row_to_be_edited = button.closest('tr');
     let cells = row_to_be_edited.cells;
 
@@ -193,13 +198,20 @@ function confirmEdit(button) {
         fetch('../../tp4/ex5/users.php',{
             method: 'PUT', 
             headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json'  
             },
             body: JSON.stringify(requestbody) 
         })
         .then(response => {
             if (response.status === 200 ) {
                 alert('update success');
+                for (let i = 1; i < cells.length - 1; i++) { 
+                    let input = cells[i].querySelector('input');
+                    cells[i].textContent = input.value; 
+                }
+                
+                cells[cells.length - 1].innerHTML = `<button onclick="editRow(this)">Edit</button>
+                                                    <button onclick="deleteRow(this)">Delete</button>`;
             } else {
                 alert('update failed: ' + response.status);
             }
@@ -209,12 +221,5 @@ function confirmEdit(button) {
             alert('error: ' + error.message);
         });
 
-        for (let i = 1; i < cells.length - 1; i++) { 
-            let input = cells[i].querySelector('input');
-            cells[i].textContent = input.value; 
-        }
-        
-        cells[cells.length - 1].innerHTML = `<button onclick="editRow(this)">Edit</button>
-                                            <button onclick="deleteRow(this)">Delete</button>`;
     }
 }
