@@ -6,14 +6,15 @@ This variation of a [donut chart](https://observablehq.com/@d3/donut-chart/2) de
 
 function _dataset(Inputs,chart)
 {
-  const radio = Inputs.radio(new Map([["Apples", "apples"], ["Oranges", "oranges"]]), {label: "dataset", value: "apples"});
-  const timeout = setTimeout(() => chart.change(radio.value = "oranges"), 2000);
+  const radio = Inputs.radio(new Map([["Protein", "protein"], ["Vitamin", "vitamin"]]), {label: "dataset", value: "protein"});
+  const timeout = setTimeout(() => chart.change(radio.value = "vitamin"), 2000);
   radio.addEventListener("input", () => (clearTimeout(timeout), chart.change(radio.value)));
   return radio;
 }
 
 
 function _chart(width,d3,data)
+
 {
   const height = Math.min(500, width / 2);
   const outerRadius = height / 2 - 10;
@@ -28,7 +29,7 @@ function _chart(width,d3,data)
         .innerRadius(innerRadius)
         .outerRadius(outerRadius);
 
-  const pie = d3.pie().sort(null).value((d) => d["apples"]);
+  const pie = d3.pie().sort(null).value((d) => d["protein"]);
   
   const path = svg.datum(data).selectAll("path")
       .data(pie)
@@ -59,7 +60,7 @@ function _chart(width,d3,data)
 
 
 function _data(d3){return(
-d3.tsvParse(`apples	oranges
+d3.tsvParse(`protein	vitamin
 53245	200
 28479	200
 19697	200
