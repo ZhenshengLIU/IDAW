@@ -159,10 +159,11 @@ function editRow(button) {
     let row_to_be_edited = button.closest('tr');
     let cells = row_to_be_edited.cells;
 
+ 
     for (let i= 1; i<cells.length-1;i++){
         // skip the 1st column, id cant be modified.
         let originaldata = cells[i].textContent;
-        cells[i].innerHTML= `<input type="text" value="${originaldata}">`;
+        cells[i].innerHTML= `<input type="text" id="input${i}" value="${originaldata}">`;
     }
     cells[cells.length-1].innerHTML=`<button onclick="confirmEdit(this)">Confirm</button>
                                      <button onclick="deleteRow(this)">Delete</button>`
@@ -179,37 +180,41 @@ function confirmEdit(button) {
 
     requestbody.id=cells[0].textContent;
 
-    for (let i = 1; i < cells.length - 1; i++) { 
-        let input = cells[i].querySelector('input');
-        let fieldName = headers[i].textContent.toLowerCase();
-        requestbody[fieldName] = input.value;
-    }
-
-
-    fetch('../../tp4/ex5/users.php',{
-        method: 'PUT', 
-        headers: {
-            'Content-Type': 'application/json' 
-        },
-        body: JSON.stringify(requestbody) 
-    })
-    .then(response => {
-        if (response.status === 200 ) {
-            alert('update success');
-        } else {
-            alert('update failed: ' + response.status);
+    if (document.getElementById("input1").value.trim !== ""){
+        for (let i = 1; i < cells.length - 1; i++) { 
+            let input = cells[i].querySelector('input');
+            let fieldName = headers[i].textContent.toLowerCase();
+            requestbody[fieldName] = input.value;
         }
-    })
-    .catch(error => {
-        console.error('error:', error);
-        alert('error: ' + error.message);
-    });
 
-    for (let i = 1; i < cells.length - 1; i++) { 
-        let input = cells[i].querySelector('input');
-        cells[i].textContent = input.value; 
+
+        fetch('../../tp4/ex5/users.php',{
+            method: 'PUT', 
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(requestbody) 
+        })
+        .then(response => {
+            if (response.status === 200 ) {
+                alert('update success');
+            } else {
+                alert('update failed: ' + response.status);
+            }
+        })
+        .catch(error => {
+            console.error('error:', error);
+            alert('error: ' + error.message);
+        });
+
+        for (let i = 1; i < cells.length - 1; i++) { 
+            let input = cells[i].querySelector('input');
+            cells[i].textContent = input.value; 
+        }
+        
+        cells[cells.length - 1].innerHTML = `<button onclick="editRow(this)">Edit</button>
+                                            <button onclick="deleteRow(this)">Delete</button>`;
+    }else{
+        alert('you should enter the name')
     }
-    
-    cells[cells.length - 1].innerHTML = `<button onclick="editRow(this)">Edit</button>
-                                          <button onclick="deleteRow(this)">Delete</button>`;
 }
