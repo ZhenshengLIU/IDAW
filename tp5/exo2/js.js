@@ -1,5 +1,7 @@
+//initial all users datas
 let all_users=[];   
 
+//send get request to db and return all users data
 function getdata(){
     fetch('../../tp4/ex5/users.php')
         .then(response => response.json())
@@ -18,6 +20,26 @@ function getdata(){
 
 }
 
+// print all data in table
+function load_Table(users) {
+    const tableBody = document.getElementById('usersTableBody');
+    tableBody.innerHTML = ''; 
+
+    users.forEach(user => {
+        let newRow = `<tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>
+                <button onclick="editRow(this)">Edit</button>
+                <button onclick="deleteRow(this)">Delete</button>
+            </td>
+        </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', newRow);
+    });
+}
+
+
 
 document.addEventListener("DOMContentLoaded",function(){
 
@@ -30,7 +52,7 @@ document.addEventListener("DOMContentLoaded",function(){
         event.preventDefault();
 
         // get the value in the form
-        let name = document.getElementById('name').value.trim();
+        let name = document.getElementById('name').value.trim(); //trim can delete the space before and after
         let email = document.getElementById('email').value.trim();
 
         
@@ -40,7 +62,6 @@ document.addEventListener("DOMContentLoaded",function(){
                 name : name,
                 email : email
             }
-            
                 fetch('../../tp4/ex5/users.php',{
                 method : 'POST',
                 headers : {
@@ -49,6 +70,8 @@ document.addEventListener("DOMContentLoaded",function(){
                 body : JSON.stringify(Requestbody)
             })
             .then(response => response.json())
+
+            //if post sucessful, add new row to the table.
             .then(data => {
                 if (data !=="" ) {
                     let newrow = `<tr>
@@ -89,25 +112,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
 });
 
-
-
-function load_Table(users) {
-    const tableBody = document.getElementById('usersTableBody');
-    tableBody.innerHTML = ''; 
-
-    users.forEach(user => {
-        let newRow = `<tr>
-            <td>${user.id}</td>
-            <td>${user.name}</td>
-            <td>${user.email}</td>
-            <td>
-                <button onclick="editRow(this)">Edit</button>
-                <button onclick="deleteRow(this)">Delete</button>
-            </td>
-        </tr>`;
-        tableBody.insertAdjacentHTML('beforeend', newRow);
-    });
-}
 
 
 function searchUsers(query) {
