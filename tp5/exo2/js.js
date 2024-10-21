@@ -180,7 +180,9 @@ function confirmEdit(button) {
 
     requestbody.id=cells[0].textContent;
 
-    if (document.getElementById("input1").value.trim !== ""){
+    if (document.getElementById("input1").value.trim() === ""){
+        alert('you should enter the name')
+    }else{
         for (let i = 1; i < cells.length - 1; i++) { 
             let input = cells[i].querySelector('input');
             let fieldName = headers[i].textContent.toLowerCase();
@@ -214,7 +216,5 @@ function confirmEdit(button) {
         
         cells[cells.length - 1].innerHTML = `<button onclick="editRow(this)">Edit</button>
                                             <button onclick="deleteRow(this)">Delete</button>`;
-    }else{
-        alert('you should enter the name')
     }
 }
