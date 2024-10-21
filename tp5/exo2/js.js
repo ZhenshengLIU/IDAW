@@ -89,6 +89,8 @@ document.addEventListener("DOMContentLoaded",function(){
                     //reset the form
                     document.querySelector('.form').reset();
 
+                    getdata();
+
                 }else{
                     alert("Error from API" + data.message);
                 }
