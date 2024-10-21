@@ -1,7 +1,7 @@
 function _1(md){return(
 md`# Pie chart update
 
-This variation of a [donut chart](https://observablehq.com/@d3/donut-chart/2) demonstrates how to update values with an animated transition. Clicking on the radio buttons changes the displayed metric.`
+This  of a [donut chart](https://observablehq.com/@d3/donut-chart/2) demonstrates how to update values with an animated transition. Clicking on the radio buttons changes the displayed metric.`
 )}
 
 function _dataset(Inputs,chart)
