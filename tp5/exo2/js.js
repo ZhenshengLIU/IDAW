@@ -144,12 +144,10 @@ function deleteRow(button){
         body : JSON.stringify(requestbody)
         })
     .then(response=> {
-        if (response.status === 204){
+        if (response.status === 200){
             row_to_be_deleted.parentNode.removeChild(row_to_be_deleted);
-            console.log('delete successful');
             alert('delete successful');
         }else{
-            console.log('delete uncessful',response.status);
             alert('delete unsuccessful');
         }
     })  
