@@ -18,7 +18,7 @@
 
     const width = 500; // Set the width of the chart
 
-    const chart = {
+    const chart = (()=>{
       const height = Math.min(500, width / 2);
       const outerRadius = height / 2 - 10;
       const innerRadius = outerRadius * 0.75;
@@ -61,7 +61,7 @@
 
       // Return the change function to switch between categories
       return { change };
-    }();
+    });
   </script>
 </body>
 </html>
