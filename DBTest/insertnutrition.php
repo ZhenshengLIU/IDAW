@@ -14,33 +14,30 @@ try {
 }
 
 
-$csvFile = 'subgroup.csv';
+$csvFile = 'nutrition.csv';
 
 
 if (($handle = fopen($csvFile, "r")) !== FALSE) {
     fgetcsv($handle); 
 
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $IDgroup = $data[0];
-        $IDsubgroup = $data[1];
-        $groupName = $data[2];
+        $IDnutrition = $data[0];
+        $nutritionName = $data[1];
 
     
-        $sql = "INSERT INTO subgroup (ID_group, ID_subgroup, Name_Subgroup) VALUES (:IDgroup, :IDsubgroup, :group_name)";
+        $sql = "INSERT INTO nutrition (ID_NUTRITION, DICTIONARYNUTRITION) VALUES (:IDnutrition, :nutritionName)";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':IDgroup', $IDgroup);
-        $stmt->bindParam(':IDsubgroup', $IDsubgroup);
-        $stmt->bindParam(':group_name', $groupName);
+        $stmt->bindParam(':IDnutrition', $IDnutrition);
+        $stmt->bindParam(':nutritionName', $nutritionName);
 
-        
         $stmt->execute();
     }
 
     
     fclose($handle);
-    echo "success！";
+    echo "success";
 } else {
-    echo "fail。";
+    echo "fail";
 }
 
 ?>

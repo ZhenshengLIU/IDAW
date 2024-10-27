@@ -14,23 +14,23 @@ try {
 }
 
 
-$csvFile = 'subgroup.csv';
+$csvFile = 'food.csv';
 
 
 if (($handle = fopen($csvFile, "r")) !== FALSE) {
     fgetcsv($handle); 
 
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $IDgroup = $data[0];
-        $IDsubgroup = $data[1];
-        $groupName = $data[2];
+        $IDsubsubgroup = $data[0];
+        $IDfood = $data[1];
+        $foodName = $data[2];
 
     
-        $sql = "INSERT INTO subgroup (ID_group, ID_subgroup, Name_Subgroup) VALUES (:IDgroup, :IDsubgroup, :group_name)";
+        $sql = "INSERT INTO food (ID_SUBSUBGROUP, ID_FOOD, FOOD_NAME) VALUES (:IDsubsubgroup, :IDfood, :foodName)";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':IDgroup', $IDgroup);
-        $stmt->bindParam(':IDsubgroup', $IDsubgroup);
-        $stmt->bindParam(':group_name', $groupName);
+        $stmt->bindParam(':IDsubsubgroup', $IDsubsubgroup);
+        $stmt->bindParam(':IDfood', $IDfood);
+        $stmt->bindParam(':foodName', $foodName);
 
         
         $stmt->execute();
@@ -38,9 +38,9 @@ if (($handle = fopen($csvFile, "r")) !== FALSE) {
 
     
     fclose($handle);
-    echo "success！";
+    echo "success";
 } else {
-    echo "fail。";
+    echo "fail";
 }
 
 ?>
