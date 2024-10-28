@@ -1,116 +1,206 @@
 <?php
-    require_once("init_pdo.php");
+require_once 'db_config.php';
 
-    function get_allusers($pdo){
-        //$name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-        $sql = "SELECT * FROM users";
-        $exe = $pdo->query($sql);
-        $res = $exe->fetchAll(PDO::FETCH_OBJ);
-        return $res;
-    }
-
-    function get_specificuser($pdo, $id){
-        $sql = "SELECT * FROM users WHERE id = :id" ;
-        $stmt = $pdo ->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-        return $res ? $res : "user not found";
-    }
-
-    function create_user($pdo, $name, $email) {
-        $sql = "INSERT INTO users (name, email) VALUES (:name, :email)";
+// 创建meal和composition记录
+function create_meal($pdo, $user_id, $meal_time, $food_id, $quantity_eat) {
+    try {
+        $pdo->beginTransaction();
+        
+        // 插入meal记录
+        $sql = "INSERT INTO meal (ID_USER, MEAL_TIME) VALUES (:user_id, :meal_time)";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':meal_time', $meal_time);
         $stmt->execute();
-        return $pdo->lastInsertId(); 
-    }
-
-    function update_user($pdo, $id, $name, $email) {
-        $sql = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+        
+        $meal_id = $pdo->lastInsertId();
+        
+        // 插入composition记录
+        $sql = "INSERT INTO composition (ID_MEAL, ID_FOOD, QUANTITY_EAT) 
+                VALUES (:meal_id, :food_id, :quantity_eat)";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute(); 
+        $stmt->bindParam(':meal_id', $meal_id);
+        $stmt->bindParam(':food_id', $food_id);
+        $stmt->bindParam(':quantity_eat', $quantity_eat);
+        $stmt->execute();
+        
+        $pdo->commit();
+        return $meal_id;
+    } catch (Exception $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        throw $e;
     }
+}
+
+// 更新meal和composition记录
+function update_meal($pdo, $meal_id, $user_id, $meal_time, $food_id, $quantity_eat) {
+    try {
+        $pdo->beginTransaction();
+        
+        // 更新meal表
+        $sql = "UPDATE meal 
+                SET ID_USER = :user_id, 
+                    MEAL_TIME = :meal_time 
+                WHERE ID_MEAL = :meal_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':meal_id', $meal_id);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':meal_time', $meal_time);
+        $stmt->execute();
+        
+        // 更新composition表
+        $sql = "UPDATE composition 
+                SET ID_FOOD = :food_id, 
+                    QUANTITY_EAT = :quantity_eat 
+                WHERE ID_MEAL = :meal_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':meal_id', $meal_id);
+        $stmt->bindParam(':food_id', $food_id);
+        $stmt->bindParam(':quantity_eat', $quantity_eat);
+        $stmt->execute();
+        
+        $pdo->commit();
+        return true;
+    } catch (Exception $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        throw $e;
+    }
+}
+
+// 删除meal和相关的composition记录
+function delete_meal($pdo, $meal_id) {
+    try {
+        $pdo->beginTransaction();
+        
+        // 首先删除composition表中的记录
+        $sql = "DELETE FROM composition WHERE ID_MEAL = :meal_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':meal_id', $meal_id);
+        $stmt->execute();
+        
+        // 然后删除meal表中的记录
+        $sql = "DELETE FROM meal WHERE ID_MEAL = :meal_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':meal_id', $meal_id);
+        $stmt->execute();
+        
+        $pdo->commit();
+        return true;
+    } catch (Exception $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        throw $e;
+    }
+}
+
+function setHeaders() {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+    header('Content-type: application/json; charset=utf-8');
+}
+
+// 主程序
+try {
+    $pdo = new PDO(
+        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME,
+        DB_USER,
+        DB_PASS,
+        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+    );
     
-    function delete_user($pdo, $id) {
-        $sql = "DELETE FROM users WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
-    }
-
-    function setHeaders() {
-        header("Access-Control-Allow-Origin: *");
-        header('Content-type: application/json; charset=utf-8');
-    }
-
-
     setHeaders();
-
+    
     switch($_SERVER["REQUEST_METHOD"]) {
-
-        case 'GET':
-            $result = get_allusers($pdo);
-            if ($result) {
-                exit(json_encode($result)); 
+        case 'POST':
+            $data = json_decode(file_get_contents("php://input"), true);
+            if (isset($data['user_id']) && isset($data['meal_time']) && 
+                isset($data['food_id']) && isset($data['quantity_eat'])) {
+                    
+                $id = create_meal($pdo, 
+                    $data['user_id'],
+                    $data['meal_time'],
+                    $data['food_id'],
+                    $data['quantity_eat']
+                );
+                http_response_code(201);
+                exit(json_encode([
+                    'status' => 'success',
+                    'message' => 'Meal created successfully',
+                    'meal_id' => $id
+                ]));
             } else {
-                http_response_code(404); 
-                exit(json_encode(['message' => 'No users found.']));
+                http_response_code(400);
+                exit(json_encode(['error' => 'Invalid input']));
             }
             break;
             
-        case 'POST':
-            $data = json_decode(file_get_contents("php://input"), true);
-            if (isset($data['name']) && isset($data['email'])) {
-                $id = create_user($pdo, $data['name'], $data['email']);
-                http_response_code(201);
-                exit(json_encode(['id' => $id]));
-            } else {
-                http_response_code(400); 
-                exit(json_encode(['error' => 'Invalid input']));
-            }
-
         case 'PUT':
             $data = json_decode(file_get_contents("php://input"), true);
-            if (isset($data['id']) && isset($data['name']) && isset($data['email'])) {
-                $success = update_user($pdo, $data['id'], $data['name'], $data['email']);
+            if (isset($data['meal_id']) && isset($data['user_id']) && 
+                isset($data['meal_time']) && isset($data['food_id']) && 
+                isset($data['quantity_eat'])) {
+                    
+                $success = update_meal($pdo,
+                    $data['meal_id'],
+                    $data['user_id'],
+                    $data['meal_time'],
+                    $data['food_id'],
+                    $data['quantity_eat']
+                );
+                
                 if ($success) {
-                    http_response_code(200); 
-                    exit(json_encode(['message' => 'User updated successfully']));
+                    http_response_code(200);
+                    exit(json_encode([
+                        'status' => 'success',
+                        'message' => 'Meal updated successfully'
+                    ]));
                 } else {
-                    http_response_code(404); 
-                    exit(json_encode(['error' => 'User not found']));
-                }
-            } else {
-                http_response_code(400); 
-                exit(json_encode(['error' => 'Invalid input']));
-            }
-        
-        case 'DELETE':
-            $data = json_decode(file_get_contents("php://input"), true);
-            if (isset($data['id'])) {
-                $success = delete_user($pdo, $data['id']);
-                 if ($success) {
-                    http_response_code(200); 
-                    exit(json_encode(['message' => 'User deleted successfully']));
-                } else {
-                    http_response_code(404); 
-                    exit(json_encode(['error' => 'User not found']));
+                    http_response_code(404);
+                    exit(json_encode(['error' => 'Meal not found']));
                 }
             } else {
                 http_response_code(400);
                 exit(json_encode(['error' => 'Invalid input']));
             }
-        
-         default:
-            http_response_code(405); 
+            break;
+            
+        case 'DELETE':
+            $data = json_decode(file_get_contents("php://input"), true);
+            if (isset($data['meal_id'])) {
+                $success = delete_meal($pdo, $data['meal_id']);
+                
+                if ($success) {
+                    http_response_code(200);
+                    exit(json_encode([
+                        'status' => 'success',
+                        'message' => 'Meal deleted successfully'
+                    ]));
+                } else {
+                    http_response_code(404);
+                    exit(json_encode(['error' => 'Meal not found']));
+                }
+            } else {
+                http_response_code(400);
+                exit(json_encode(['error' => 'Invalid input']));
+            }
+            break;
+            
+        default:
+            http_response_code(405);
             exit(json_encode(['error' => 'Method not allowed']));
-
-
     }
-
+    
+} catch (Exception $e) {
+    http_response_code(500);
+    exit(json_encode([
+        'status' => 'error',
+        'message' => 'Server error: ' . $e->getMessage()
+    ]));
+}
 ?>
